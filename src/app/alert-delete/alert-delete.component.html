@@ -1,0 +1,10 @@
+<!-- <h2 class="content" mat-dialog-title>Confirm   delete </h2> -->
+<div class="content" mat-dialog-title>
+  <p>Nom : <strong> {{ message.nom }}</strong>	</p>
+  <mat-icon class="icon" color="ThemePalette">error_outline </mat-icon>
+</div>
+<div class="flex" mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button class="delete" color="warn" (click)="onConfirm()">Delete</button>
+
+</div>

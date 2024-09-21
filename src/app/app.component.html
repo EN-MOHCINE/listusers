@@ -1,0 +1,210 @@
+
+
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav opened="false" mode="side">
+      <mat-nav-list  >
+          <a mat-list-item (click)="gotologin()" >Login</a>
+          <a mat-list-item (click)="gotoContact()" >contact </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="height: auto;">
+      <mat-toolbar color="primary"> 
+        <mat-toolbar-row>
+                <button mat-icon-button (click)="sidenav.toggle()" class="example-icon"
+                aria-label="Example icon-button with menu icon">
+                  <mat-icon >menu</mat-icon>
+                </button>
+                  <span class="container mx-auto" >Mohcine Ennefai</span>
+                  <button 
+                  matTooltip="create  user "
+                  mat-raised-button class=" bg bg-success text-white " 
+                  (click)="openDialog()" >create user 
+                  <mat-icon>account_circle</mat-icon>
+                </button>
+          </mat-toolbar-row>
+      </mat-toolbar>
+        <!-- <router-outlet></router-outlet> -->
+
+        <router-outlet></router-outlet>
+
+<!-- test upload  -->
+        <form (submit)="onSubmit()" enctype="multipart/form-data">
+          <input type="file" name="excelFile" (change)="onFileSelected($event)" />
+          <button type="submit">Upload</button>
+        </form>
+
+
+
+        <div [hidden]="false"  class="container">
+        <!-- //filter  -->
+        <mat-form-field>
+          <mat-label>Filter</mat-label> 
+        
+          <input matInput 
+          name="input" (keyup)="applyFilter1(name.value)" #name placeholder="Filter user">
+          
+        </mat-form-field>
+        
+        <!-- //table -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            
+            
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID </th>
+            <td mat-cell *matCellDef="let element" > {{element.id}} </td>
+          </ng-container>
+        
+          
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+          </ng-container>
+        
+          
+          <ng-container matColumnDef="prenom">
+            <th mat-header-cell *matHeaderCellDef> prenom </th>
+            <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+          </ng-container>
+        
+          
+          <ng-container matColumnDef="Address">
+            <th mat-header-cell *matHeaderCellDef> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+          </ng-container>
+          <ng-container matColumnDef="City">
+            <th mat-header-cell *matHeaderCellDef> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.City}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="Edites">
+            <th mat-header-cell *matHeaderCellDef> Edites </th>
+            <td mat-cell *matCellDef="let element"> 
+        
+                  <button mat-icon-button 
+                  matTooltip="delete user "
+                  color="warn" 
+                  (click)="deleteid(element,element.id)"
+                  aria-label="Example icon button with a menu icon">
+                  <mat-icon>  person_remove</mat-icon>
+                  </button>
+        
+        
+                  <button 
+                    matTooltip="update user "
+                    mat-icon-button class="text-warning "
+                    (click)="editeusers(element)"
+                    color="accent" aria-label="Example icon button with a menu icon">
+                    <mat-icon>edit</mat-icon>
+                  </button> 
+        
+              </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+        </table>
+        <!-- //pagination  -->
+        <mat-paginator [length]="totalItems"
+                      [pageSize]="pageSize"
+                      [pageIndex]="pageIndex"
+                      
+                      [pageSizeOptions]="[5, 10, 25, 100]"
+                      
+                      #pagi
+                        (page)="pagechange($event)"              
+                      >
+
+
+
+                      <!-- /// -->
+        </mat-paginator>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+
+  <!-- ////////////////// -->
+     
+
+
+      
+        </div>
+
+        <!-- // test affiche card  -->
+        <!-- <mat-carousel>
+          <mat-grid-list cols="1" rowHeight="4:3">
+            <mat-grid-tile *ngFor="let item of users">
+              <mat-card>
+                
+                <mat-card-content>
+                  <h3>{{item.nom}}</h3>
+                  <p>{{ item.Address }}</p>
+                </mat-card-content>
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-carousel>  -->
+        <ng-image-slider [images]="imgCollection" #nav></ng-image-slider>
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+
+
+<!-- //////////////////////////:: -->
+
+
+<!-- //table bootstrap  -->
+<!-- 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+<table class="text-center mx-auto my-4 shadow table table-striped table-inverse ">
+  <thead class="thead-inverse">
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>adress</th>
+      <th>city</th>
+      <th>edits</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td scope="row">{{user.id}}</td>
+        <td>{{user.nom}}</td>
+        <td>{{user.prenom}}</td>
+        <td>{{user.Address}}</td>
+        
+        <td>{{user.City}}</td>
+        <td>
+          <button mat-icon-button  color="warn" 
+          (click)="deleteid(user,user.id)"
+          aria-label="Example icon button with a menu icon">
+          <mat-icon>  person_remove</mat-icon>
+          </button>
+          <button mat-icon-button class="text-warning "
+            (click)="editeusers(user)"
+            color="accent" aria-label="Example icon button with a menu icon">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+
+      </tr>
+
+    </tbody>
+</table>
+
+</div>
+
+   -->
+
+<!-- 
+  <ul>
+    <li *ngFor="let data of list1">{{data}}</li>
+  </ul> -->
+

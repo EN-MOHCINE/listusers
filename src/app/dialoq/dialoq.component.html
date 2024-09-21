@@ -1,0 +1,46 @@
+<h1 mat-dialog-title class="text-center">Add users</h1>
+<form [formGroup]="userForm" (ngSubmit)="userSubmit()">
+<div mat-dialog-content>
+    
+
+        <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input required formControlName="nom" matInput placeholder="Saisie Nom">
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Prenom</mat-label>
+            <input required formControlName="prenom" matInput placeholder="Saisie Prenom">
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline"> 
+            <mat-label>Adresse</mat-label>
+            <input required formControlName="Address" matInput placeholder="saisie Adrsse">
+        </mat-form-field>
+    
+        <!-- <mat-form-field appearance="outline"> 
+            <mat-label>status</mat-label>
+            <input required formControlName="status" matInput placeholder="saisie ">
+        </mat-form-field> -->
+    
+        <mat-form-field appearance="outline">
+            <mat-label>choisir ville</mat-label>
+            <mat-select required formControlName="City" matNativeControl name="car">
+                <mat-option value="casa">Casa</mat-option>
+                <mat-option value="rabat">rabat</mat-option>
+                <mat-option value="agadir">agadir</mat-option>
+                <mat-option value="marrakech">marrakech</mat-option>
+                <mat-option value="fes">fes</mat-option>
+                <mat-option value="tanger">tanger</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        
+    </div>
+    <div mat-dialog-action [align] =" 'end'" class=" m-2">
+        <button type="button" mat-raised-button color="warn" mat-dialog-close>Close</button>
+        <button type="submit" style="margin-left: 8px;" 
+        
+        mat-raised-button color="primary">{{actionBtn}}</button>
+    </div>
+</form>
