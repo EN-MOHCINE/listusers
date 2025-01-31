@@ -22,8 +22,8 @@ export class UsersService {
   //connect front ->  backend
   getusers(limit:any, offset :any ):Observable <any> {
     const params = new HttpParams().set('limit', limit.toString()).set('offset', offset.toString());
-        // return   this.http.get<UserData>(`http://localhost:9090/users/${pagesize}`)
-        return   this.http.get<UserData>(`http://localhost:9090/users`,{params})
+        return   this.http.get<UserData>(`http://localhost:9090/users/${pagesize}`)
+        // return   this.http.get<UserData>(`http://localhost:9090/users`,{params})
         
     }
 
