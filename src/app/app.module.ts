@@ -35,6 +35,8 @@ import { ContactComponent } from './contact/contact.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ButtonModule } from 'primeng/button';
+
 // import {  DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatInputModule } from '@angular/material/input';
@@ -89,6 +91,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     MatPaginatorModule,
     MatSidenavModule,
     MatListModule,
+    ButtonModule 
     //
 
     
